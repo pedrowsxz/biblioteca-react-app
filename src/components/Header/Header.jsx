@@ -2,6 +2,7 @@ import React from "react";
 import { Menu } from "lucide-react";
 import { navItems } from "../../data/content";
 import styles from "./Header.module.css";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -21,10 +22,16 @@ export default function Header() {
       </button>
 
       <nav className={styles.nav}>
-        {navItems.map((item, index) => (
-          <a key={item} href="#" className={index === 0 ? styles.active : ""}>
-            {item}
-          </a>
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              isActive ? styles.active : ""
+            }
+          >
+            {item.label}
+          </NavLink>
         ))}
       </nav>
     </header>

@@ -1,21 +1,21 @@
-import React from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
-import QuickLinks from "./components/QuickLinks/QuickLinks";
-import AboutSection from "./components/AboutSection/AboutSection";
-import EventsSection from "./components/EventsSection/EventsSection";
 import Footer from "./components/Footer/Footer";
+
+import HomePage from "./pages/HomePage/HomePage";
+import AboutPage from "./pages/AboutPage/AboutPage";
 
 export default function App() {
   return (
     <div className="page">
       <Header />
-      <main>
-        <Hero />
-        <QuickLinks />
-        <AboutSection />
-        <EventsSection />
-      </main>
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/sobre" element={<AboutPage />} />
+      </Routes>
+
       <Footer />
     </div>
   );

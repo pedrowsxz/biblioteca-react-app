@@ -8,7 +8,14 @@ import {
   MessagesSquare,
 } from "lucide-react";
 
-export const navItems = ["Início", "Sobre", "Eventos", "Horários", "Localização", "Contato"];
+export const navItems = [
+  { label: "Início", path: "/" },
+  { label: "Sobre", path: "/sobre" },
+  { label: "Eventos", path: "/eventos" },
+  { label: "Horários", path: "/horarios" },
+  { label: "Localização", path: "/localizacao" },
+  { label: "Contato", path: "/contato" },
+];
 
 export const quickCards = [
   {
