@@ -1,0 +1,56 @@
+.quickLinks {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 24px 42px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.quickCard {
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 24px 18px;
+  box-shadow: 0 8px 16px rgba(82, 65, 39, 0.04);
+  min-height: 184px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quickIcon {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--olive);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+
+.quickCard h3 {
+  margin: 16px 0 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.quickCard p {
+  margin: 0;
+  font-size: 0.97rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.cardArrow {
+  margin-top: auto;
+  align-self: flex-end;
+  color: var(--olive);
+}
+
+@media (max-width: 1080px) {
+  .quickLinks {
+    grid-template-columns: 1fr;
+  }
+}

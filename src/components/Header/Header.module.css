@@ -1,0 +1,90 @@
+.topbar {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: linear-gradient(180deg, #edc24a 0%, #e7be43 100%);
+  border-bottom: 1px solid rgba(75, 52, 34, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandMark {
+  width: 34px;
+  height: 46px;
+  border: 2px solid #4b3422;
+  border-radius: 18px 18px 6px 6px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.brandMark span {
+  position: absolute;
+  inset: 10px 8px 8px;
+  border: 1.5px solid #4b3422;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.brandTitle {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.brandSubtitle {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+.nav {
+  display: flex;
+  gap: 38px;
+  font-size: 16px;
+}
+
+.nav a {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--text);
+}
+
+.mobileMenu {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+}
+
+@media (max-width: 820px) {
+  .topbar {
+    height: 84px;
+    padding: 0 18px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: inline-flex;
+  }
+}
