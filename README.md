@@ -92,35 +92,6 @@ frontend/
     └── main.jsx
 ```
 
-Acessar
-## Arquitetura
-
-```
-backend/
-├── .env.example
-├── package.json
-└── src/
-    ├── server.js              # sobe o servidor HTTP
-    ├── app.js                 # Express: middlewares, rotas, erros
-    ├── config/
-    │   └── db.js               # conexão (singleton) com o MongoDB
-    ├── utils/
-    │   └── dataSource.js       # lê DATA_SOURCE do .env
-    ├── repositories/           # única camada que sabe de onde vêm os dados
-    │   ├── bookRepository.js   # decide entre MongoDB e JSON local
-    │   └── eventRepository.js
-    ├── routes/                 # rotas Express chamando os repositórios direto
-    │   ├── books.routes.js     # (sem camada de "controller": desnecessária
-    │   └── events.routes.js    #  nesse tamanho de projeto)
-    ├── scripts/
-    │   ├── transformBook.js    # regras de mapeamento Open Library -> modelo interno
-    │   ├── fetchCatalog.js     # passos 1–3 do pipeline de importação
-    │   └── seedDatabase.js     # passo 4: popula o MongoDB
-    └── data/
-        ├── library_catalog.json  # catálogo (comitado no repo, ver abaixo)
-        └── events.json            # eventos de exemplo
-```
-
 **Decisão principal:** os `repositories/` são o único lugar do código que
 sabe se os dados vêm do MongoDB ou de um arquivo JSON local. Rotas,
 transformação e o restante da aplicação não têm ideia de qual fonte está
