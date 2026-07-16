@@ -1,7 +1,36 @@
-import React, { useRef } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { events } from "../../data/content";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./EventsSection.module.css";
+import {
+  ArrowLeft, ArrowRight,
+  CalendarDays,
+  MapPin,
+  Users,
+  BookOpen,
+  Music2,
+  Film,
+  Landmark,
+  Palette,
+  Dumbbell,
+  MessagesSquare,
+  MicVocal,
+} from "lucide-react";
+
+const EVENT_ICONS = {
+  "Literatura": BookOpen,
+  "Livro": BookOpen,
+  "Música": Music2,
+  "Cinema": Film,
+  "Patrimônio": Landmark,
+  "História": Landmark,
+  "Arte": Palette,
+  "Exposição": Palette,
+  "Esporte": Dumbbell,
+  "Comunidade": Users,
+  "Palestra": MessagesSquare,
+  "Debate": MessagesSquare,
+  "Festival": CalendarDays,
+  "Teatro": MicVocal,
+};
 
 export default function EventsSection() {
   const scrollRef = useRef(null);
@@ -14,6 +43,29 @@ export default function EventsSection() {
       behavior: "smooth",
     });
   };
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function loadEvents() {
+      const response = await fetch("/api/events");
+      const data = await response.json();
+      setEvents(data);
+    }
+
+    loadEvents();
+  }, []);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcomingEvents = events
+    .filter((event) => {
+      const eventDate = new Date(event.date);
+      eventDate.setHours(0, 0, 0, 0);
+      return eventDate >= today;
+    })
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
     <section className={styles.events}>
@@ -49,8 +101,8 @@ export default function EventsSection() {
       </div>
 
       <div ref={scrollRef} className={styles.eventsGrid}>
-        {events.slice(0, 8).map((event) => {
-          const Icon = event.icon;
+        {upcomingEvents.slice(0, 8).map((event) => {
+          const Icon = EVENT_ICONS[event.category] ?? CalendarDays;
 
           return (
             <article className={styles.eventCard} key={event.title}>

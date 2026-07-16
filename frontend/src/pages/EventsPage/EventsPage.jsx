@@ -1,8 +1,22 @@
 import styles from "./EventsPage.module.css";
-import { events } from "../../data/content";
+import { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard/EventCard";
 
 export default function EventsPage() {
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function loadEvents() {
+      const response = await fetch("/api/events");
+      const data = await response.json();
+      setEvents(data);
+    }
+
+    loadEvents();
+  }, []);
+
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -37,7 +51,7 @@ export default function EventsPage() {
           <div>
             <span className={styles.sectionTag}>CALENDÁRIO</span>
             <div className={styles.divider} />
-            <h2>Confira todos os eventos</h2>
+            <h2>Confira todos os eventos do mês</h2>
           </div>
         </div>
 

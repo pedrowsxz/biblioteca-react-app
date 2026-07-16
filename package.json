@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

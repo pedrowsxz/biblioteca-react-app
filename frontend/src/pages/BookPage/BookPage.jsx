@@ -1,3 +1,5 @@
+// BookPage.jsx
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -10,7 +12,6 @@ import {
   BookMarked,
 } from "lucide-react";
 import styles from "./BookPage.module.css";
-import catalog from "../../data/library_catalog.json";
 
 const STATUS_LABELS = {
   available: "Disponível",
@@ -37,9 +38,41 @@ function languageLabel(code) {
 
 export default function BookPage() {
   const { isbn } = useParams();
-  const book = catalog.find((item) => String(item.isbn) === String(isbn));
+  const [book, setBook] = useState(null);
+  const [relatedBooks, setRelatedBooks] = useState([]);
+  const [error, setError] = useState(false);
 
-  if (!book) {
+  useEffect(() => {
+    // Fetch book data from backend
+    fetch(`/api/books/${isbn}`)
+      .then((res) => {
+        if (res.status === 404) {
+          throw new Error("notfound");
+        }
+        if (!res.ok) {
+          throw new Error("network");
+        }
+        return res.json();
+      })
+      .then((data) => setBook(data))
+      .catch((err) => setError(true));
+  }, [isbn]);
+
+  useEffect(() => {
+    if (!book) return;
+    // Fetch related books by genre
+    const params = new URLSearchParams();
+    params.append("genre", book.genre);
+    fetch(`/api/books?${params.toString()}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const related = data.items.filter((item) => item.isbn !== book.isbn).slice(0, 3);
+        setRelatedBooks(related);
+      })
+      .catch((err) => console.error("Failed to fetch related books:", err));
+  }, [book]);
+
+  if (error) {
     return (
       <main className={styles.page}>
         <div className={styles.notFound}>
@@ -55,11 +88,12 @@ export default function BookPage() {
     );
   }
 
-  const isAvailable = book.availability_status === "available";
+  if (!book) {
+    // You can display a loading state here if desired
+    return null;
+  }
 
-  const relatedBooks = catalog
-    .filter((item) => item.genre === book.genre && item.isbn !== book.isbn)
-    .slice(0, 3);
+  const isAvailable = book.availability_status === "available";
 
   return (
     <main className={styles.page}>
@@ -86,9 +120,7 @@ export default function BookPage() {
             )}
           </div>
 
-          <span
-            className={`${styles.status} ${isAvailable ? styles.available : styles.unavailable}`}
-          >
+          <span className={`${styles.status} ${isAvailable ? styles.available : styles.unavailable}`}>
             {statusLabel(book.availability_status)}
           </span>
 

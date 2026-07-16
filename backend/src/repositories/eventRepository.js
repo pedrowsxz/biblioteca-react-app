@@ -12,6 +12,8 @@ function readLocalEvents() {
   return JSON.parse(raw);
 }
 
+// Lista simples: a página de eventos não pede busca/paginação, então,
+// ao contrário do catálogo, aqui não há filtros nem recorte por página.
 export async function findEvents() {
   if (isMongoEnabled()) {
     const db = await connectToDatabase();

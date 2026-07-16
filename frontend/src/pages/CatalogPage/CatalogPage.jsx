@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+// CatalogPage.jsx
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, BookOpen, ChevronLeft, ChevronRight, X } from "lucide-react";
 import styles from "./CatalogPage.module.css";
-import catalog from "../../data/library_catalog.json";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -32,55 +32,53 @@ function getPageNumbers(current, total) {
 }
 
 export default function CatalogPage() {
-  // Draft filter values, bound to the form inputs.
   const [termDraft, setTermDraft] = useState("");
   const [genreDraft, setGenreDraft] = useState("all");
   const [statusDraft, setStatusDraft] = useState("all");
 
-  // Filters actually applied to the results, updated on form submit.
-  // Kept separate from the drafts above so results only change when the
-  // visitor asks the "backend" to search, not on every keystroke.
+  const [genres, setGenres] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+
+  const [books, setBooks] = useState([]);
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [filters, setFilters] = useState({ term: "", genre: "all", status: "all" });
   const [currentPage, setCurrentPage] = useState(1);
 
-  const genres = useMemo(
-    () => Array.from(new Set(catalog.map((book) => book.genre).filter(Boolean))).sort(),
-    []
-  );
+  useEffect(() => {
+    // Fetch filter options from backend
+    fetch("/api/books/filters")
+      .then((res) => res.json())
+      .then((data) => {
+        setGenres(data.genres);
+        setStatuses(data.statuses);
+      })
+      .catch((err) => console.error("Failed to fetch filters:", err));
+  }, []);
 
-  const statuses = useMemo(
-    () => Array.from(new Set(catalog.map((book) => book.availability_status).filter(Boolean))),
-    []
-  );
+  useEffect(() => {
+    // Fetch books from backend when filters or currentPage change
+    const params = new URLSearchParams();
+    params.append("search", filters.term);
+    params.append("genre", filters.genre);
+    params.append("status", filters.status);
+    params.append("page", currentPage.toString());
+    params.append("limit", ITEMS_PER_PAGE.toString());
 
-  // In place of a real endpoint, this filters the local catalog data.
-  // Swapping in an actual backend later just means replacing this
-  // computation with the response of a `fetch`/API call.
-  const filteredBooks = useMemo(() => {
-    const term = filters.term.trim().toLowerCase();
+    fetch(`/api/books?${params.toString()}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBooks(data.items);
+        setTotalBooks(data.total);
+        setTotalPages(data.totalPages);
+      })
+      .catch((err) => console.error("Failed to fetch books:", err));
+  }, [filters, currentPage]);
 
-    return catalog.filter((book) => {
-      const matchesTerm =
-        !term ||
-        book.title?.toLowerCase().includes(term) ||
-        book.author?.toLowerCase().includes(term);
-      const matchesGenre = filters.genre === "all" || book.genre === filters.genre;
-      const matchesStatus = filters.status === "all" || book.availability_status === filters.status;
-
-      return matchesTerm && matchesGenre && matchesStatus;
-    });
-  }, [filters]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredBooks.length / ITEMS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
-
-  const visibleBooks = filteredBooks.slice(
-    (safePage - 1) * ITEMS_PER_PAGE,
-    safePage * ITEMS_PER_PAGE
-  );
-
-  const rangeStart = filteredBooks.length === 0 ? 0 : (safePage - 1) * ITEMS_PER_PAGE + 1;
-  const rangeEnd = Math.min(safePage * ITEMS_PER_PAGE, filteredBooks.length);
+  const rangeStart = totalBooks === 0 ? 0 : (safePage - 1) * ITEMS_PER_PAGE + 1;
+  const rangeEnd = Math.min(safePage * ITEMS_PER_PAGE, totalBooks);
 
   function handleSearch(event) {
     event.preventDefault();
@@ -169,20 +167,20 @@ export default function CatalogPage() {
       <section className={styles.resultsSection}>
         <div className={styles.resultsHeader}>
           <p>
-            {filteredBooks.length === 0
+            {totalBooks === 0
               ? "Nenhum resultado"
-              : `Mostrando ${rangeStart}–${rangeEnd} de ${filteredBooks.length} livro(s)`}
+              : `Mostrando ${rangeStart}–${rangeEnd} de ${totalBooks} livro(s)`}
           </p>
         </div>
 
-        {visibleBooks.length === 0 ? (
+        {books.length === 0 ? (
           <div className={styles.emptyState}>
             <BookOpen size={30} />
             <p>Nenhum livro encontrado com os filtros selecionados.</p>
           </div>
         ) : (
           <div className={styles.grid}>
-            {visibleBooks.map((book) => (
+            {books.map((book) => (
               <article key={book.isbn} className={styles.card}>
                 <Link to={`/catalogo/${book.isbn}`} className={styles.coverLink}>
                   {book.cover_image ? (

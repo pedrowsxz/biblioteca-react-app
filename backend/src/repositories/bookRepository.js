@@ -66,8 +66,6 @@ export async function findBookByIsbn(isbn) {
   return catalog.find((book) => book.isbn === isbn) || null;
 }
 
-// Valores distintos usados para popular os <select> de gênero/disponibilidade
-// no formulário de busca do catálogo.
 export async function getCatalogFilters() {
   if (isMongoEnabled()) {
     const db = await connectToDatabase();
