@@ -1,0 +1,267 @@
+.page {
+  background: #f8f5ef;
+  color: #4b3422;
+}
+
+.hero,
+.infoGrid,
+.contactSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.hero {
+  padding-top: 74px;
+  padding-bottom: 54px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+.sectionTag {
+  display: inline-block;
+  color: #62713e;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.divider {
+  width: 32px;
+  height: 2px;
+  background: #d8a623;
+  margin: 16px 0 24px;
+}
+
+.hero h1,
+.infoCard h2,
+.sectionHeading h2 {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  color: #3e2817;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 5vw, 5rem);
+}
+
+.hero p,
+.textBlock p,
+.hoursList li,
+.placeholder,
+.mapPlaceholder span,
+.form label,
+.mapPlaceholder strong {
+  color: #5f5549;
+  line-height: 1.8;
+  font-size: 1.02rem;
+}
+
+.heroContent {
+  max-width: 520px;
+}
+
+.heroPanel {
+  min-height: 380px;
+  border-radius: 28px;
+  border: 1px solid rgba(220, 178, 74, 0.45);
+  background:
+    radial-gradient(circle at 65% 28%, rgba(238, 213, 130, 0.62) 0, rgba(238, 213, 130, 0.16) 18%, transparent 19%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 250, 241, 0.8));
+  box-shadow: 0 16px 32px rgba(82, 65, 39, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.heroPanelInner {
+  max-width: 360px;
+  text-align: center;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+
+.heroPanelInner strong {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #3e2817;
+}
+
+.heroPanelInner span {
+  color: #6f604f;
+  line-height: 1.7;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding-top: 6px;
+  padding-bottom: 34px;
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.44);
+  border: 1px solid rgba(75, 52, 34, 0.14);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 20px rgba(82, 65, 39, 0.05);
+}
+
+.cardIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #6e7845;
+  color: #6e7845;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.infoCard h2 {
+  font-size: 1.55rem;
+  margin-bottom: 14px;
+}
+
+.textBlock p {
+  margin: 0 0 8px;
+}
+
+.placeholder {
+  margin-top: 14px;
+  font-style: italic;
+}
+
+.hoursList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hoursList li {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(75, 52, 34, 0.08);
+}
+
+.hoursList li:last-child {
+  border-bottom: 0;
+}
+
+.contactSection {
+  padding-top: 12px;
+  padding-bottom: 56px;
+  display: grid;
+  grid-template-columns: 1fr 0.95fr;
+  gap: 22px;
+}
+
+.formCard,
+.mapCard {
+  border: 1px solid rgba(220, 178, 74, 0.45);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 26px;
+  box-shadow: 0 10px 20px rgba(82, 65, 39, 0.05);
+}
+
+.sectionHeading h2 {
+  font-size: 2rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+  color: #4b3422;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(75, 52, 34, 0.16);
+  background: #fffdf8;
+  padding: 14px 16px;
+  font: inherit;
+  color: #4b3422;
+  outline: none;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: #9a8c7b;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 4px;
+  padding: 14px 20px;
+  background: linear-gradient(180deg, #efc54c 0%, #dfb039 100%);
+  color: #4b3422;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 12px 30px rgba(90, 66, 36, 0.08);
+}
+
+.mapPlaceholder {
+  min-height: 320px;
+  border-radius: 18px;
+  border: 1px dashed rgba(220, 178, 74, 0.9);
+  background: rgba(220, 178, 74, 0.08);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+@media (max-width: 1000px) {
+  .hero,
+  .contactSection {
+    grid-template-columns: 1fr;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeading h2 {
+    font-size: 1.7rem;
+  }
+}
+

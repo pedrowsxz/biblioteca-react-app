@@ -1,0 +1,23 @@
+{
+  "name": "biblioteca-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "API simples da Biblioteca Municipal: catálogo de livros e eventos, com fonte de dados alternável entre JSON local e MongoDB.",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "fetch:catalog": "node src/scripts/fetchCatalog.js",
+    "seed": "node src/scripts/seedDatabase.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0",
+    "mongoose": "^9.7.4"
+  }
+}

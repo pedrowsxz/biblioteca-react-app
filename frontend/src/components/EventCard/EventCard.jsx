@@ -1,0 +1,43 @@
+import { CalendarDays, MapPin, Users, ArrowRight } from "lucide-react";
+import styles from "./EventCard.module.css";
+
+export default function EventCard({ event }) {
+  const Icon = event.icon;
+
+  return (
+    <article className={styles.card}>
+
+      <div className={styles.body}>
+        <div className={styles.badge}>
+    {event.category}
+  </div>
+        <div className={styles.metaTop}>
+          <span className={styles.date}>
+            <CalendarDays size={14} />
+            {event.weekday} · {event.day} {event.month} · {event.time}
+          </span>
+
+          <span className={styles.location}>
+            <MapPin size={14} />
+            {event.location}
+          </span>
+        </div>
+
+        <h3>{event.title}</h3>
+        <p className={styles.description}>{event.description}</p>
+
+        <div className={styles.bottomRow}>
+          <div className={styles.audience}>
+            <Users size={15} />
+            {event.audience}
+          </div>
+
+          <div className={styles.iconChip} aria-hidden="true">
+            <Icon size={18} />
+          </div>
+        </div>
+
+      </div>
+    </article>
+  );
+}
