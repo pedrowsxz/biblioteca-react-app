@@ -16,7 +16,7 @@ Formulário de Contato também desabilitado.
 
 ## Rodando a API
 ```bash
-git clone ...
+git clone https://github.com/pedrowsxz/biblioteca-react-app.git
 cd biblioteca-react-app
 npm install
 npm run dev
