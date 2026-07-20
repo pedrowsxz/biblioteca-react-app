@@ -5,7 +5,9 @@
     "backend"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\""
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm install --workspaces && npm run build -w frontend",
+    "start": "npm start -w backend"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
