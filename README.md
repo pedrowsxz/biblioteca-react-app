@@ -2,6 +2,8 @@
 
 Como a publicação do site ainda não foi autorizada, não foi utilizado o banco de dados oficial da Biblioteca Municipal, no qual havia a integração utilizando MongoDB.
 
+Dessa forma, foi publicado um demo, que pode ser acessado neste link: https://biblioteca-react-app.onrender.com
+
 Para que o projeto possa ser executado por qualquer pessoa sem necessidade de configurar um banco de dados, a versão publicada utiliza um catálogo local (`library_catalog.json`) como fonte de dados.
 
 Esse arquivo é gerado automaticamente por um script que:

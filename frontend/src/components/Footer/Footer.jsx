@@ -17,10 +17,10 @@ export default function Footer() {
 
         <div className={styles.footerCol}>
           <h4>Informações</h4>
-          <a href="#">Horários</a>
-          <a href="#">Localização</a>
-          <a href="#">Eventos</a>
-          <a href="#">Contato</a>
+          <a href="/visite">Horários</a>
+          <a href="/visite">Localização</a>
+          <a href="/eventos">Eventos</a>
+          <a href="/visite">Contato</a>
         </div>
 
         <div className={styles.footerCol}>
